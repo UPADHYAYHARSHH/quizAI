@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quiz/actions/map_question_answer.dart';
@@ -14,7 +13,7 @@ import 'actions/formatQuestionOption.dart';
 import 'components/custom_button.dart';
 
 class GenerateQuiz extends StatefulWidget {
-  GenerateQuiz({super.key});
+  const GenerateQuiz({super.key});
 
   @override
   State<GenerateQuiz> createState() => _GenerateQuizState();
@@ -41,8 +40,6 @@ class _GenerateQuizState extends State<GenerateQuiz> {
   }
 
   final formKey = GlobalKey<FormState>();
-
-  User? currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -235,16 +232,6 @@ class _GenerateQuizState extends State<GenerateQuiz> {
     );
   }
 
-  DocumentReference<Object?>? getCurrentUser() {
-    if (currentUser != null) {
-      DocumentReference currentUserRef =
-          FirebaseFirestore.instance.collection('User').doc(currentUser!.uid);
-      return currentUserRef;
-    } else {
-      return null;
-    }
-  }
-
   dynamic apiCall() async {
     setState(() {
       loading = true;
@@ -255,7 +242,7 @@ class _GenerateQuizState extends State<GenerateQuiz> {
         ),
         headers: {
           "Authorization":
-              "Bearer  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",
+              "Bearer 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",
           "Content-Type": "application/json"
         },
         body: jsonEncode({
@@ -304,16 +291,23 @@ class _GenerateQuizState extends State<GenerateQuiz> {
       await quiz(
         getCurrentUser(),
         noOfQuestion,
-        _topic.toString(),
+        _topic.text,
         false,
         DateTime.now(),
       );
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const Quiz(),
+          builder: (context) => Quiz(
+              quizRef: FirebaseFirestore.instance.collection('quiz').doc(),
+              topicName: _topic.text),
         ),
       );
+    } else {
+      print('harsh--->${response.body.toString()}');
+      setState(() {
+        loading = false;
+      });
     }
   }
 }

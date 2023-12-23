@@ -1,11 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:quiz/app_state.dart';
 import 'package:quiz/questionOptionStructure.dart';
 import 'package:quiz/utils/quiz_result.dart';
 
+import 'firebase.dart';
+
 class Quiz extends StatefulWidget {
-  const Quiz({super.key});
+  const Quiz({super.key, required this.quizRef, required this.topicName});
+
+  final DocumentReference quizRef;
+  final String topicName;
 
   @override
   State<Quiz> createState() => _QuizState();
@@ -222,7 +228,7 @@ class _QuizState extends State<Quiz> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),
                 child: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     setState(() {
                       isSelectOption = false;
                     });
@@ -235,7 +241,18 @@ class _QuizState extends State<Quiz> {
                       });
                     } else {
                       endTime = DateTime.now();
-
+                      await PlayedQuiz(
+                        getCurrentUser(),
+                        widget.quizRef,
+                        selectedOptions,
+                        correctAnswerCount,
+                        totalAttendedOption,
+                        widget.topicName,
+                        DateTime.now(),
+                        FFAppState().questionOptionAnswer.length.toInt(),
+                        false,
+                        true,
+                      );
                       Navigator.push(
                         context,
                         MaterialPageRoute(

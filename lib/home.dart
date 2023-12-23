@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,9 @@ class _HomeState extends State<Home> {
               Text(
                 'Hi, ${user?.displayName ?? 'User'} ${'👋🏻'}',
                 style: const TextStyle(
-                  color: Color(0xFF263238),
+                  color: Color(
+                    0xFF263238,
+                  ),
                   fontSize: 18,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w500,
@@ -41,7 +44,9 @@ class _HomeState extends State<Home> {
               const Text(
                 'Let’s Prepare together!',
                 style: TextStyle(
-                  color: Color(0xFF455A64),
+                  color: Color(
+                    0xFF455A64,
+                  ),
                   fontSize: 14,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
@@ -57,7 +62,9 @@ class _HomeState extends State<Home> {
                   Text(
                     'Challenges',
                     style: TextStyle(
-                      color: Color(0xFF263238),
+                      color: Color(
+                        0xFF263238,
+                      ),
                       fontSize: 20,
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w500,
@@ -68,7 +75,9 @@ class _HomeState extends State<Home> {
                     'View All',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color(0xFF263238),
+                      color: Color(
+                        0xFF263238,
+                      ),
                       fontSize: 16,
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w500,
@@ -88,7 +97,9 @@ class _HomeState extends State<Home> {
                       width: 250,
                       height: 200,
                       decoration: ShapeDecoration(
-                        color: const Color(0xFFE6F2FF),
+                        color: const Color(
+                          0xFFE6F2FF,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                             8,
@@ -119,7 +130,10 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 30, left: 15.0),
+                            padding: const EdgeInsets.only(
+                              top: 30,
+                              left: 15.0,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -139,7 +153,9 @@ class _HomeState extends State<Home> {
                                 const Text(
                                   'Total 50 Questions',
                                   style: TextStyle(
-                                    color: Color(0xFF2F7FCE),
+                                    color: Color(
+                                      0xFF2F7FCE,
+                                    ),
                                     fontSize: 12,
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.w400,
@@ -163,8 +179,11 @@ class _HomeState extends State<Home> {
                                           decoration: ShapeDecoration(
                                             color: Colors.white,
                                             shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(2)),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                2,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -175,10 +194,15 @@ class _HomeState extends State<Home> {
                                           width: 143.86,
                                           height: 4,
                                           decoration: ShapeDecoration(
-                                            color: const Color(0xFF2F7FCE),
+                                            color: const Color(
+                                              0xFF2F7FCE,
+                                            ),
                                             shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(2)),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                2,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -191,7 +215,9 @@ class _HomeState extends State<Home> {
                                 const Text(
                                   '12 Questions Answered',
                                   style: TextStyle(
-                                    color: Color(0xFF455A64),
+                                    color: Color(
+                                      0xFF455A64,
+                                    ),
                                     fontSize: 12,
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.w400,
@@ -211,7 +237,9 @@ class _HomeState extends State<Home> {
                       width: 250,
                       height: 200,
                       decoration: ShapeDecoration(
-                        color: const Color(0xFFE6F2FF),
+                        color: const Color(
+                          0xFFE6F2FF,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                             8,
@@ -242,14 +270,19 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 30, left: 15.0),
+                            padding: const EdgeInsets.only(
+                              top: 30,
+                              left: 15.0,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
                                   'Technology',
                                   style: TextStyle(
-                                    color: Color(0xFF263238),
+                                    color: Color(
+                                      0xFF263238,
+                                    ),
                                     fontSize: 16,
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.w500,
@@ -262,7 +295,9 @@ class _HomeState extends State<Home> {
                                 const Text(
                                   'Total 50 Questions',
                                   style: TextStyle(
-                                    color: Color(0xFF2F7FCE),
+                                    color: Color(
+                                      0xFF2F7FCE,
+                                    ),
                                     fontSize: 12,
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.w400,
@@ -286,8 +321,11 @@ class _HomeState extends State<Home> {
                                           decoration: ShapeDecoration(
                                             color: Colors.white,
                                             shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(2)),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                2,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -298,10 +336,15 @@ class _HomeState extends State<Home> {
                                           width: 143.86,
                                           height: 4,
                                           decoration: ShapeDecoration(
-                                            color: const Color(0xFF2F7FCE),
+                                            color: const Color(
+                                              0xFF2F7FCE,
+                                            ),
                                             shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(2)),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                2,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -314,7 +357,9 @@ class _HomeState extends State<Home> {
                                 const Text(
                                   '12 Questions Answered',
                                   style: TextStyle(
-                                    color: Color(0xFF455A64),
+                                    color: Color(
+                                      0xFF455A64,
+                                    ),
                                     fontSize: 12,
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.w400,
@@ -330,10 +375,154 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.only(
+                  top: 20.0,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              FutureBuilder(
+                future: fetchQuizResults(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text(
+                      'Error: ${snapshot.error}',
+                    );
+                  } else if (!snapshot.hasData ||
+                      (snapshot.data as List<DocumentSnapshot>).isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'No quizs are available',
+                      ),
+                    );
+                  } else {
+                    List<DocumentSnapshot> quizResults =
+                        snapshot.data as List<DocumentSnapshot>;
+                    return Column(
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Your Quizs',
+                              style: TextStyle(
+                                color: Color(0xFF263238),
+                                fontSize: 20,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                            ),
+                            Text(
+                              'View All',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF263238),
+                                fontSize: 16,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                            )
+                          ],
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount:
+                                quizResults.length > 3 ? 3 : quizResults.length,
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> data = quizResults[index]
+                                  .data() as Map<String, dynamic>;
+                              return Container(
+                                width: double.maxFinite,
+                                decoration: BoxDecoration(
+                                  color: const Color(
+                                    0xFFE6F2FF,
+                                  ),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 0,
+                                      color: Color(
+                                        0xFFBCDDFE,
+                                      ),
+                                      offset: Offset(
+                                        0,
+                                        4,
+                                      ),
+                                      spreadRadius: 0,
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(
+                                    30,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 10.0,
+                                    left: 15,
+                                    bottom: 10,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Icon(
+                                        Icons.timer,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        '${data['topicName']}',
+                                        style: const TextStyle(
+                                          color: Color(
+                                            0xFF263238,
+                                          ),
+                                          fontSize: 16,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w500,
+                                          height: 0,
+                                        ),
+                                      ),
+                                      Text(
+                                        '${data['totalAnswerCount']} Questions Answered',
+                                        style: const TextStyle(
+                                          color: Color(0xFF2F7FCE),
+                                          fontSize: 12,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w400,
+                                          height: 0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                },
+              )
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Future<List<DocumentSnapshot>> fetchQuizResults() async {
+  QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('QuizResult').get();
+  return querySnapshot.docs;
 }
