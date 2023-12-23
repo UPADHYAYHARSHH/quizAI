@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "282093742974",
+    "project_id": "quizai-1e135",
+    "storage_bucket": "quizai-1e135.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282093742974:android:3a69ddd6771e565c2b612f",
+        "android_client_info": {
+          "package_name": "com.example.quizai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282093742974-cvfk5g80f4gok2e60t1rhof98l73c4pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPzPpjHIP3BVunlSdTlVsQB7xNOnPRTDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282093742974-cvfk5g80f4gok2e60t1rhof98l73c4pn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
