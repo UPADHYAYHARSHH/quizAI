@@ -8,10 +8,17 @@ import 'package:quiz/utils/quiz_result.dart';
 import 'firebase.dart';
 
 class Quiz extends StatefulWidget {
-  const Quiz({super.key, required this.quizRef, required this.topicName});
+  const Quiz(
+      {super.key,
+      required this.quizRef,
+      required this.topicName,
+      required this.isMultiple,
+      required this.isFromHistory});
 
   final DocumentReference quizRef;
   final String topicName;
+  final bool isMultiple;
+  final bool isFromHistory;
 
   @override
   State<Quiz> createState() => _QuizState();
@@ -121,116 +128,300 @@ class _QuizState extends State<Quiz> {
                   ),
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Builder(
-                    builder: (context) {
-                      final option = singleQuizResponse?.option?.toList() ?? [];
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.vertical,
-                        itemCount: option.length,
-                        itemBuilder: (context, optionIndex) {
-                          final optionItem = option[optionIndex];
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10.0,
-                              bottom: 10,
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                if (!isSelectOption) {
-                                  setState(
-                                    () {
-                                      selectedOption = optionItem;
-                                      selectedOptions.add(optionItem);
-                                      isSelectOption = true;
-                                      totalAttendedOption =
-                                          totalAttendedOption + 1;
-                                      if (selectedOption == optionItem &&
-                                          selectedOption ==
-                                              singleQuizResponse!.answer) {
-                                        setState(() {
-                                          correctAnswerCount =
-                                              (correctAnswerCount + 1);
-                                        });
-                                      }
-                                    },
-                                  );
-                                } else {
-                                  return;
-                                }
-                              },
-                              child: Container(
-                                width: double.maxFinite,
-                                decoration: BoxDecoration(
-                                  color: () {
-                                    if (selectedOption == optionItem &&
-                                        selectedOption ==
-                                            singleQuizResponse!.answer) {
-                                      return Colors.green;
-                                    } else if (selectedOption == optionItem &&
-                                        selectedOption !=
-                                            singleQuizResponse!.answer) {
-                                      return Colors.red;
-                                    } else {
-                                      return const Color(0xFFE6F2FF);
-                                    }
-                                  }(),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 0,
-                                      color: () {
+              if (widget.isMultiple)
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 15.0),
+                    child: Builder(
+                      builder: (context) {
+                        final option =
+                            singleQuizResponse?.option?.toList() ?? [];
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.vertical,
+                          itemCount: option.length,
+                          itemBuilder: (context, optionIndex) {
+                            final optionItem = option[optionIndex];
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                top: 10.0,
+                                bottom: 10,
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  if (!isSelectOption) {
+                                    setState(
+                                      () {
+                                        selectedOption = optionItem;
+                                        selectedOptions.add(optionItem);
+                                        isSelectOption = true;
+                                        totalAttendedOption =
+                                            totalAttendedOption + 1;
                                         if (selectedOption == optionItem &&
                                             selectedOption ==
                                                 singleQuizResponse!.answer) {
-                                          return Colors.green.shade300;
-                                        } else if (selectedOption ==
-                                                optionItem &&
-                                            selectedOption !=
-                                                singleQuizResponse!.answer) {
-                                          return Colors.red.shade300;
-                                        } else {
-                                          return const Color(0xFFBCDDFE);
+                                          setState(() {
+                                            correctAnswerCount =
+                                                (correctAnswerCount + 1);
+                                          });
                                         }
-                                      }(),
-                                      offset: const Offset(0, 4),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 20.0,
-                                      bottom: 20,
-                                      left: 10,
-                                    ),
-                                    child: Text(
-                                      optionItem,
-                                      textAlign: TextAlign.start,
+                                      },
+                                    );
+                                  } else {
+                                    return;
+                                  }
+                                },
+                                child: Container(
+                                  width: double.maxFinite,
+                                  decoration: BoxDecoration(
+                                    color: () {
+                                      if (selectedOption == optionItem &&
+                                          selectedOption ==
+                                              singleQuizResponse!.answer) {
+                                        return Colors.green;
+                                      } else if (selectedOption == optionItem &&
+                                          selectedOption !=
+                                              singleQuizResponse!.answer) {
+                                        return Colors.red;
+                                      } else {
+                                        return const Color(0xFFE6F2FF);
+                                      }
+                                    }(),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 0,
+                                        color: () {
+                                          if (selectedOption == optionItem &&
+                                              selectedOption ==
+                                                  singleQuizResponse!.answer) {
+                                            return Colors.green.shade300;
+                                          } else if (selectedOption ==
+                                                  optionItem &&
+                                              selectedOption !=
+                                                  singleQuizResponse!.answer) {
+                                            return Colors.red.shade300;
+                                          } else {
+                                            return const Color(0xFFBCDDFE);
+                                          }
+                                        }(),
+                                        offset: const Offset(0, 4),
+                                        spreadRadius: 0,
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 20.0,
+                                        bottom: 20,
+                                        left: 10,
+                                      ),
+                                      child: Text(
+                                        optionItem,
+                                        textAlign: TextAlign.start,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      );
-                    },
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
+              if (widget.isMultiple == false)
+                Expanded(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
+                            bottom: 10,
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              if (!isSelectOption) {
+                                setState(
+                                  () {
+                                    selectedOption = "true";
+                                    selectedOptions.add("true");
+                                    isSelectOption = true;
+                                    totalAttendedOption =
+                                        totalAttendedOption + 1;
+                                    if (selectedOption == "true" &&
+                                        selectedOption ==
+                                            singleQuizResponse!.answer) {
+                                      setState(() {
+                                        correctAnswerCount =
+                                            (correctAnswerCount + 1);
+                                      });
+                                    }
+                                  },
+                                );
+                              } else {
+                                return;
+                              }
+                            },
+                            child: Container(
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                color: () {
+                                  if (selectedOption == "true" &&
+                                      selectedOption ==
+                                          singleQuizResponse!.answer) {
+                                    return Colors.green;
+                                  } else if (selectedOption == "true" &&
+                                      selectedOption !=
+                                          singleQuizResponse!.answer) {
+                                    return Colors.red;
+                                  } else {
+                                    return const Color(0xFFE6F2FF);
+                                  }
+                                }(),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 0,
+                                    color: () {
+                                      if (selectedOption == "true" &&
+                                          selectedOption ==
+                                              singleQuizResponse!.answer) {
+                                        return Colors.green.shade300;
+                                      } else if (selectedOption == "true" &&
+                                          selectedOption !=
+                                              singleQuizResponse!.answer) {
+                                        return Colors.red.shade300;
+                                      } else {
+                                        return const Color(0xFFBCDDFE);
+                                      }
+                                    }(),
+                                    offset: const Offset(0, 4),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: const Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 20.0,
+                                    bottom: 20,
+                                    left: 10,
+                                  ),
+                                  child: Text(
+                                    "true",
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
+                            bottom: 10,
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              if (!isSelectOption) {
+                                setState(
+                                  () {
+                                    selectedOption = "false";
+                                    selectedOptions.add("false");
+                                    isSelectOption = true;
+                                    totalAttendedOption =
+                                        totalAttendedOption + 1;
+                                    if (selectedOption == "false" &&
+                                        selectedOption ==
+                                            singleQuizResponse!.answer) {
+                                      setState(() {
+                                        correctAnswerCount =
+                                            (correctAnswerCount + 1);
+                                      });
+                                    }
+                                  },
+                                );
+                              } else {
+                                return;
+                              }
+                            },
+                            child: Container(
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                color: () {
+                                  if (selectedOption == "false" &&
+                                      selectedOption ==
+                                          singleQuizResponse!.answer) {
+                                    return Colors.green;
+                                  } else if (selectedOption == "false" &&
+                                      selectedOption !=
+                                          singleQuizResponse!.answer) {
+                                    return Colors.red;
+                                  } else {
+                                    return const Color(0xFFE6F2FF);
+                                  }
+                                }(),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 0,
+                                    color: () {
+                                      if (selectedOption == "false" &&
+                                          selectedOption ==
+                                              singleQuizResponse!.answer) {
+                                        return Colors.green.shade300;
+                                      } else if (selectedOption == "false" &&
+                                          selectedOption !=
+                                              singleQuizResponse!.answer) {
+                                        return Colors.red.shade300;
+                                      } else {
+                                        return const Color(0xFFBCDDFE);
+                                      }
+                                    }(),
+                                    offset: const Offset(0, 4),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: const Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 20.0,
+                                    bottom: 20,
+                                    left: 10,
+                                  ),
+                                  child: Text(
+                                    "false",
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),
                 child: InkWell(
                   onTap: () async {
                     setState(() {
                       isSelectOption = false;
+                      selectedOption = null;
                     });
                     if (questionIndex <
                         ((FFAppState().questionOptionAnswer.length) - 1)) {

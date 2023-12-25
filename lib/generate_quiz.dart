@@ -299,12 +299,14 @@ class _GenerateQuizState extends State<GenerateQuiz> {
         context,
         MaterialPageRoute(
           builder: (context) => Quiz(
+              isFromHistory: false,
+              isMultiple: typeOfAnswer == '4 options' ? true : false,
               quizRef: FirebaseFirestore.instance.collection('quiz').doc(),
               topicName: _topic.text),
         ),
       );
     } else {
-      print('harsh--->${response.body.toString()}');
+      // print('harsh--->${response.body.toString()}');
       setState(() {
         loading = false;
       });

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -180,7 +181,7 @@ class _HomeState extends State<Home> {
                                             color: Colors.white,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(
+                                              BorderRadius.circular(
                                                 2,
                                               ),
                                             ),
@@ -199,7 +200,7 @@ class _HomeState extends State<Home> {
                                             ),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(
+                                              BorderRadius.circular(
                                                 2,
                                               ),
                                             ),
@@ -322,7 +323,7 @@ class _HomeState extends State<Home> {
                                             color: Colors.white,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(
+                                              BorderRadius.circular(
                                                 2,
                                               ),
                                             ),
@@ -341,7 +342,7 @@ class _HomeState extends State<Home> {
                                             ),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(
+                                              BorderRadius.circular(
                                                 2,
                                               ),
                                             ),
@@ -404,111 +405,180 @@ class _HomeState extends State<Home> {
                     );
                   } else {
                     List<DocumentSnapshot> quizResults =
-                        snapshot.data as List<DocumentSnapshot>;
-                    return Column(
-                      children: [
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Your Quizs',
-                              style: TextStyle(
-                                color: Color(0xFF263238),
-                                fontSize: 20,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w500,
-                                height: 0,
-                              ),
-                            ),
-                            Text(
-                              'View All',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xFF263238),
-                                fontSize: 16,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w500,
-                                height: 0,
-                              ),
-                            )
-                          ],
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount:
-                                quizResults.length > 3 ? 3 : quizResults.length,
-                            itemBuilder: (context, index) {
-                              Map<String, dynamic> data = quizResults[index]
-                                  .data() as Map<String, dynamic>;
-                              return Container(
-                                width: double.maxFinite,
-                                decoration: BoxDecoration(
-                                  color: const Color(
-                                    0xFFE6F2FF,
-                                  ),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      blurRadius: 0,
-                                      color: Color(
-                                        0xFFBCDDFE,
-                                      ),
-                                      offset: Offset(
-                                        0,
-                                        4,
-                                      ),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(
-                                    30,
-                                  ),
+                    snapshot.data as List<DocumentSnapshot>;
+                    return Expanded(
+                      child: Column(
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Your Quizs',
+                                style: TextStyle(
+                                  color: Color(0xFF263238),
+                                  fontSize: 20,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
                                 ),
-                                child: Padding(
+                              ),
+                              Text(
+                                'View All',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF263238),
+                                  fontSize: 16,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: quizResults.length > 3
+                                  ? 3
+                                  : quizResults.length,
+                              itemBuilder: (context, index) {
+                                Map<String, dynamic> data = quizResults[index]
+                                    .data() as Map<String, dynamic>;
+                                return Padding(
                                   padding: const EdgeInsets.only(
                                     top: 10.0,
-                                    left: 15,
                                     bottom: 10,
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Icon(
-                                        Icons.timer,
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        '${data['topicName']}',
-                                        style: const TextStyle(
-                                          color: Color(
-                                            0xFF263238,
-                                          ),
-                                          fontSize: 16,
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w500,
-                                          height: 0,
+                                  child: InkWell(
+                                    child: Container(
+                                      width: double.maxFinite,
+                                      decoration: BoxDecoration(
+                                        color: const Color(
+                                          0xFFE6F2FF,
+                                        ),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            blurRadius: 0,
+                                            color: Color(
+                                              0xFFBCDDFE,
+                                            ),
+                                            offset: Offset(
+                                              0,
+                                              4,
+                                            ),
+                                            spreadRadius: 0,
+                                          )
+                                        ],
+                                        borderRadius: BorderRadius.circular(
+                                          30,
                                         ),
                                       ),
-                                      Text(
-                                        '${data['totalAnswerCount']} Questions Answered',
-                                        style: const TextStyle(
-                                          color: Color(0xFF2F7FCE),
-                                          fontSize: 12,
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w400,
-                                          height: 0,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 10.0,
+                                          left: 15,
+                                          bottom: 20,
+                                          right: 15,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            const Icon(
+                                              Icons.timer,
+                                              color: Colors.blue,
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              '${data['topicName']}',
+                                              style: const TextStyle(
+                                                color: Color(
+                                                  0xFF263238,
+                                                ),
+                                                fontSize: 16,
+                                                fontFamily: 'Inter',
+                                                fontWeight: FontWeight.w500,
+                                                height: 0,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  '${data['totalAnswerCount']} Questions Answered',
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF2F7FCE),
+                                                    fontSize: 12,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 0,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${data['totalQuestion']}  Questions',
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF455A64),
+                                                    fontSize: 12,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            LinearPercentIndicator(
+                                              linearGradient:
+                                              const LinearGradient(
+                                                begin: Alignment(
+                                                  0.00,
+                                                  -1.00,
+                                                ),
+                                                end: Alignment(0, 1),
+                                                colors: [
+                                                  Color(
+                                                    0xFF4CD0C3,
+                                                  ),
+                                                  Color(
+                                                    0xFF2F7FCE,
+                                                  ),
+                                                ],
+                                              ),
+                                              lineHeight: 12,
+                                              percent:
+                                              ((data['totalAnswerCount']) /
+                                                  (data['totalQuestion'])),
+                                              animation: true,
+                                              animateFromLastPercent: true,
+                                              backgroundColor: const Color(
+                                                0xFFE0E3E7,
+                                              ),
+                                              barRadius: const Radius.circular(
+                                                24,
+                                              ),
+                                              padding: EdgeInsets.zero,
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     );
                   }
                 },
@@ -523,6 +593,6 @@ class _HomeState extends State<Home> {
 
 Future<List<DocumentSnapshot>> fetchQuizResults() async {
   QuerySnapshot querySnapshot =
-      await FirebaseFirestore.instance.collection('QuizResult').get();
+  await FirebaseFirestore.instance.collection('QuizResult').get();
   return querySnapshot.docs;
 }
