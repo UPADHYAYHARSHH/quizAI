@@ -8,12 +8,13 @@ import 'package:quiz/utils/quiz_result.dart';
 import 'firebase.dart';
 
 class Quiz extends StatefulWidget {
-  const Quiz(
-      {super.key,
-      required this.quizRef,
-      required this.topicName,
-      required this.isMultiple,
-      required this.isFromHistory});
+  const Quiz({
+    super.key,
+    required this.quizRef,
+    required this.topicName,
+    required this.isMultiple,
+    required this.isFromHistory,
+  });
 
   final DocumentReference quizRef;
   final String topicName;
@@ -25,6 +26,8 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  late Future<DocumentSnapshot> _documentSnapshotFuture;
+
   QuestionOptionStructure? singleQuizResponse;
   String? selectedOption = '';
   bool isSelectOption = false;

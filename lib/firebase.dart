@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:quiz/questionOptionStructure.dart';
 
 DocumentReference<Object?>? getCurrentUser() {
   User? currentUser = FirebaseAuth.instance.currentUser;
@@ -29,6 +30,8 @@ Future<void> quiz(
   String topicName,
   bool isChallangedQuiz,
   DateTime createdAt,
+  bool? isMultiple,
+  List<QuestionOptionStructure> quiz,
 ) async {
   CollectionReference quiz = FirebaseFirestore.instance.collection('Quiz');
   quiz.add({
@@ -37,6 +40,8 @@ Future<void> quiz(
     'topicName': topicName,
     'isChallangedQuiz': isChallangedQuiz,
     'createdAt': createdAt,
+    'isMultiple': isMultiple,
+    'quiz': quiz,
   });
 }
 

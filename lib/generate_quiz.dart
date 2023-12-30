@@ -242,7 +242,7 @@ class _GenerateQuizState extends State<GenerateQuiz> {
         ),
         headers: {
           "Authorization":
-              "Bearer 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",
+              "Bearer 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",
           "Content-Type": "application/json"
         },
         body: jsonEncode({
@@ -294,6 +294,8 @@ class _GenerateQuizState extends State<GenerateQuiz> {
         _topic.text,
         false,
         DateTime.now(),
+        typeOfAnswer == '4 options' ? true : false,
+        FFAppState().questionOptionAnswer,
       );
       Navigator.push(
         context,
@@ -306,7 +308,7 @@ class _GenerateQuizState extends State<GenerateQuiz> {
         ),
       );
     } else {
-      // print('harsh--->${response.body.toString()}');
+      print('harsh--->${response.body.toString()}');
       setState(() {
         loading = false;
       });

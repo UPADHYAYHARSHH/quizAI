@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:quiz/app_state.dart';
+import 'package:quiz/quiz.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -181,7 +183,7 @@ class _HomeState extends State<Home> {
                                             color: Colors.white,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(
+                                                  BorderRadius.circular(
                                                 2,
                                               ),
                                             ),
@@ -200,7 +202,7 @@ class _HomeState extends State<Home> {
                                             ),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(
+                                                  BorderRadius.circular(
                                                 2,
                                               ),
                                             ),
@@ -323,7 +325,7 @@ class _HomeState extends State<Home> {
                                             color: Colors.white,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(
+                                                  BorderRadius.circular(
                                                 2,
                                               ),
                                             ),
@@ -342,7 +344,7 @@ class _HomeState extends State<Home> {
                                             ),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(
+                                                  BorderRadius.circular(
                                                 2,
                                               ),
                                             ),
@@ -405,7 +407,7 @@ class _HomeState extends State<Home> {
                     );
                   } else {
                     List<DocumentSnapshot> quizResults =
-                    snapshot.data as List<DocumentSnapshot>;
+                        snapshot.data as List<DocumentSnapshot>;
                     return Expanded(
                       child: Column(
                         children: [
@@ -452,6 +454,24 @@ class _HomeState extends State<Home> {
                                     bottom: 10,
                                   ),
                                   child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        FFAppState().questionOptionAnswer =
+                                            data['quiz'];
+                                      });
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              Quiz(
+                                            quizRef: data['quizRef'],
+                                            topicName: data["topicName"],
+                                            isMultiple: data["isMultiple"],
+                                            isFromHistory: true,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     child: Container(
                                       width: double.maxFinite,
                                       decoration: BoxDecoration(
@@ -484,7 +504,7 @@ class _HomeState extends State<Home> {
                                         ),
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             const Icon(
                                               Icons.timer,
@@ -510,7 +530,8 @@ class _HomeState extends State<Home> {
                                             ),
                                             Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   '${data['totalAnswerCount']} Questions Answered',
@@ -539,7 +560,7 @@ class _HomeState extends State<Home> {
                                             ),
                                             LinearPercentIndicator(
                                               linearGradient:
-                                              const LinearGradient(
+                                                  const LinearGradient(
                                                 begin: Alignment(
                                                   0.00,
                                                   -1.00,
@@ -556,8 +577,8 @@ class _HomeState extends State<Home> {
                                               ),
                                               lineHeight: 12,
                                               percent:
-                                              ((data['totalAnswerCount']) /
-                                                  (data['totalQuestion'])),
+                                                  ((data['totalAnswerCount']) /
+                                                      (data['totalQuestion'])),
                                               animation: true,
                                               animateFromLastPercent: true,
                                               backgroundColor: const Color(
@@ -593,6 +614,6 @@ class _HomeState extends State<Home> {
 
 Future<List<DocumentSnapshot>> fetchQuizResults() async {
   QuerySnapshot querySnapshot =
-  await FirebaseFirestore.instance.collection('QuizResult').get();
+      await FirebaseFirestore.instance.collection('QuizResult').get();
   return querySnapshot.docs;
 }
